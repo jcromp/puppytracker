@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PuppyTracker</string>
+    <string name="puppyage">%d weeks</string>
+    <string name="puppymaxcrate">Note, maximum time to be in the crate is %d hours</string>
+</resources>
