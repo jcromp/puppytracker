@@ -11,6 +11,7 @@ import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -89,7 +90,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         //Max hours in crate is months old + 1
         var monthsDiff = now.get(Calendar.MONTH) - birthday.get(Calendar.MONTH)
-        txtRecCrate?.text = getString(R.string.puppymaxcrate, monthsDiff + 1)
+        var maxHours = 8
+        if((monthsDiff + 1) < 8){
+            maxHours = monthsDiff + 1
+        }
+        txtRecCrate?.text =  getString(R.string.puppymaxcrate, maxHours)
     }
 
     private fun getBirthdate() : Long{
@@ -107,7 +112,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             setBirthdayText(now.timeInMillis)
 
-        }, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)).show()
+        }, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH))
+        datePicker.setMessage(getString(R.string.title_enter_birthdate))
+        datePicker.show()
         return now.timeInMillis
     }
 

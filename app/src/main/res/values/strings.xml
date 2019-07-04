@@ -9,4 +9,6 @@
     <string name="summary_basic_preference">Summary basic preference</string>
     <string name="key_birthday">Birthday</string>
     <string name="title_pref_birthday">Set Birthday of Puppy</string>
+    <string name="title_enter_birthdate">Enter Puppies Birthdate</string>
+    <string name="press_button_to_record_time">Press button to record time.</string>
 </resources>
