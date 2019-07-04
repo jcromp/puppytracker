@@ -1,0 +1,13 @@
+<PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <Preference
+                app:key="@string/key_birthday"
+                app:title="@string/title_pref_birthday"/>
+
+        <Preference
+                app:key="feedback"
+                app:summary="Report technical issues or suggest new features"
+                app:title="Send feedback"/>
+
+</PreferenceScreen>

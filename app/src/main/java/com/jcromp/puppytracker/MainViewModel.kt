@@ -1,8 +1,8 @@
 package com.jcromp.puppytracker
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.jcromp.puppytracker.db.entity.Crate
 import com.jcromp.puppytracker.db.EntityRepo
 import com.jcromp.puppytracker.db.entity.Food

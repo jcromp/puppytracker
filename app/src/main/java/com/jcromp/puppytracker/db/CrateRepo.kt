@@ -1,8 +1,8 @@
 package com.jcromp.puppytracker.db
 
 import android.app.Application
-import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
+import androidx.lifecycle.LiveData
 import com.jcromp.puppytracker.db.dao.CrateDao
 import com.jcromp.puppytracker.db.dao.FoodDao
 import com.jcromp.puppytracker.db.dao.PeeDao

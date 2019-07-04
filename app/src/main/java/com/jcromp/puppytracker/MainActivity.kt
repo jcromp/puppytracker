@@ -1,17 +1,21 @@
 package com.jcromp.puppytracker
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -25,6 +29,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         setPuppyBirthday()
+
+        //setSupportActionBar(findViewById(R.id.toolbar))
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java);
         btnCrate.setOnClickListener(this)
@@ -61,17 +67,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setPuppyBirthday() {
-        var date = Calendar.getInstance()
-        date.set(Calendar.MONTH, 0)
-        date.set(Calendar.DAY_OF_MONTH, 17)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+        var dateMilliseconds = sharedPreferences.getLong(getString(R.string.key_birthday), 0)
+        if(dateMilliseconds == 0.toLong()){
+            //Prompt the user to enter the puppies birthday
+            println("PROMPT FOR BIRTHDAY")
+        }
+
+        //17th Jan
+        var birthday = Calendar.getInstance()
+        birthday.timeInMillis = dateMilliseconds
 
         //Get weeks difference between now and birthday
         var now = Calendar.getInstance()
-        var weeksDiff = now.get(Calendar.WEEK_OF_YEAR) - date.get(Calendar.WEEK_OF_YEAR)
+        var weeksDiff = now.get(Calendar.WEEK_OF_YEAR) - birthday.get(Calendar.WEEK_OF_YEAR)
         txtAge?.text = getString(R.string.puppyage, weeksDiff)
 
         //Max hours in crate is months old + 1
-        var monthsDiff = now.get(Calendar.MONTH) - date.get(Calendar.MONTH)
+        var monthsDiff = now.get(Calendar.MONTH) - birthday.get(Calendar.MONTH)
         txtRecCrate?.text = getString(R.string.puppymaxcrate, monthsDiff + 1)
     }
 
@@ -82,8 +96,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btnPee -> recordPeeTime()
             R.id.btnPoo -> recordPooTime()
             R.id.btnFlashlight -> toggleFlashlight()
+
             else -> {
                 println("$v not implemented")
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            R.id.menu_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> {
+                return super.onOptionsItemSelected(item)
             }
         }
     }
@@ -110,7 +143,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         outState?.run {
             putBoolean("TORCHON", mTorchOn)
         }
