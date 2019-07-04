@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
+import android.opengl.Visibility
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.Menu
@@ -39,6 +40,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnPoo.setOnClickListener(this)
         btnFlashlight.setOnClickListener(this)
 
+        setupButtonText()
+
         //Hide the flashlight button if the device doesnt have a flash
         if(!baseContext.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)){
             btnFlashlight.visibility = View.GONE
@@ -64,6 +67,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 txtPoo?.text = dateFormat.format(poo.time)
             }
         })
+    }
+
+    private fun setupButtonText() {
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        btnPee.setText(sharedPref.getString("button1", getString(R.string.pee)))
+        btnPoo.setText(sharedPref.getString("button2", getString(R.string.poo)))
+        btnFood.setText(sharedPref.getString("button3", getString(R.string.food)))
+        btnCrate.setText(sharedPref.getString("button4", getString(R.string.crate)))
+
+        if(!btnCrate.text.equals(getString(R.string.crate))){
+            txtRecCrate.visibility = View.INVISIBLE
+        }
     }
 
     private fun setPuppyBirthday() {

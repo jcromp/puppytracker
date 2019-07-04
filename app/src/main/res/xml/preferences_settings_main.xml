@@ -5,9 +5,33 @@
                 app:key="@string/key_birthday"
                 app:title="@string/title_pref_birthday"/>
 
-        <Preference
-                app:key="feedback"
-                app:summary="Report technical issues or suggest new features"
-                app:title="Send feedback"/>
+        <PreferenceCategory
+                app:key="button_text_category"
+                app:title="@string/title_settings_category_button_text">
+
+                <EditTextPreference
+                        app:key="button1"
+                        app:title="@string/button_1_text"
+                        app:dialogTitle="@string/title_settings_button_1"
+                        app:dialogMessage="@string/message_settings_button1"/>
+
+                <EditTextPreference
+                        app:key="button2"
+                        app:title="@string/button_2_text"
+                        app:dialogTitle="@string/title_settings_button_2"
+                        app:dialogMessage="@string/message_settings_button2"/>
+
+                <EditTextPreference
+                        app:key="button3"
+                        app:title="@string/button_3_text"
+                        app:dialogTitle="@string/title_settings_button_3"
+                        app:dialogMessage="@string/message_settings_button3"/>
+
+                <EditTextPreference
+                        app:key="button4"
+                        app:title="@string/button_4_text"
+                        app:dialogTitle="@string/title_settings_button_4"
+                        app:dialogMessage="@string/message_settings_button4"/>
+        </PreferenceCategory>
 
 </PreferenceScreen>

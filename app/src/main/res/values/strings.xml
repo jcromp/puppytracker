@@ -11,4 +11,21 @@
     <string name="title_pref_birthday">Set Birthday of Puppy</string>
     <string name="title_enter_birthdate">Enter Puppies Birthdate</string>
     <string name="press_button_to_record_time">Press button to record time.</string>
+    <string name="poo">Poo</string>
+    <string name="pee">Pee</string>
+    <string name="food">Food</string>
+    <string name="crate">Crate</string>
+    <string name="title_settings_category_button_text">Button Text</string>
+    <string name="button_1_text">Button 1 Text</string>
+    <string name="title_settings_button_1">Text for Button 1</string>
+    <string name="message_settings_button1">Text shown on the top button. Example: "Pee"</string>
+    <string name="button_2_text">Button 2 Text</string>
+    <string name="title_settings_button_2">Text for Button 2</string>
+    <string name="message_settings_button2">Text shown on the top button. Example: "Poo"</string>
+    <string name="button_3_text">Button 3 Text</string>
+    <string name="title_settings_button_3">Text for Button 3</string>
+    <string name="message_settings_button3">Text shown on the top button. Example: "Food"</string>
+    <string name="button_4_text">Button 4 Text</string>
+    <string name="title_settings_button_4">Text for Button 4</string>
+    <string name="message_settings_button4">Text shown on the top button. Example: "Crate"</string>
 </resources>

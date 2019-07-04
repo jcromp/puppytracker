@@ -18,14 +18,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        findPreference<Preference>("feedback").setOnPreferenceClickListener {
-            print("Clicked the preference")
-            print("Clickedfgdfgd the preference")
-            print("Clickghkhjkhjkled the preference")
-            print("Clickrtyrtrted the preference")
-            true
-        }
-
     }
 
     private fun setPuppyBirthday() {
