@@ -1,5 +1,6 @@
 package com.jcromp.puppytracker
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -29,8 +30,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         setPuppyBirthday()
-
-        //setSupportActionBar(findViewById(R.id.toolbar))
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java);
         btnCrate.setOnClickListener(this)
@@ -72,9 +71,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         var dateMilliseconds = sharedPreferences.getLong(getString(R.string.key_birthday), 0)
         if(dateMilliseconds == 0.toLong()){
             //Prompt the user to enter the puppies birthday
-            println("PROMPT FOR BIRTHDAY")
+            getBirthdate()
         }
 
+        setBirthdayText(dateMilliseconds)
+    }
+
+    private fun setBirthdayText(dateMilliseconds: Long) {
         //17th Jan
         var birthday = Calendar.getInstance()
         birthday.timeInMillis = dateMilliseconds
@@ -87,6 +90,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //Max hours in crate is months old + 1
         var monthsDiff = now.get(Calendar.MONTH) - birthday.get(Calendar.MONTH)
         txtRecCrate?.text = getString(R.string.puppymaxcrate, monthsDiff + 1)
+    }
+
+    private fun getBirthdate() : Long{
+        var now = Calendar.getInstance()
+        val datePicker = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view, year, month, day ->
+            now.set(Calendar.YEAR, year)
+            now.set(Calendar.MONTH, month)
+            now.set(Calendar.DAY_OF_MONTH, day)
+
+            val sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this)
+            with(sharedPreferences.edit()){
+                putLong(getString(R.string.key_birthday), now.timeInMillis)
+                commit()
+            }
+
+            setBirthdayText(now.timeInMillis)
+
+        }, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)).show()
+        return now.timeInMillis
     }
 
     override fun onClick(v: View?) {
