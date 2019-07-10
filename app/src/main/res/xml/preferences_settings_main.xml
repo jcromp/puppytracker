@@ -34,4 +34,10 @@
                         app:dialogMessage="@string/message_settings_button4"/>
         </PreferenceCategory>
 
+        <!--<PreferenceCategory-->
+                <!--key="reminders_category"-->
+                <!--title="@string/reminders">-->
+
+        <!--</PreferenceCategory>-->
+
 </PreferenceScreen>
