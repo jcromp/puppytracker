@@ -52,7 +52,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/txtPee"
             app:layout_constraintTop_toBottomOf="@+id/txtAge"
-            app:layout_constraintBottom_toTopOf="@+id/btnPoo"/>
+            app:layout_constraintBottom_toTopOf="@+id/btnPoo"
+    />
     <Button
             android:id="@+id/btnPoo"
             android:text="Poo"
