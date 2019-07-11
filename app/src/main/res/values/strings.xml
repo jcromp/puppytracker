@@ -11,6 +11,7 @@
     <string name="title_pref_birthday">Set Birthday of Puppy</string>
     <string name="title_enter_birthdate">Enter Puppies Birthdate</string>
     <string name="press_button_to_record_time">Press button to record time.</string>
+    <string name="press_button_to_record_time_short">Record time.</string>
     <string name="poo">Poo</string>
     <string name="pee">Pee</string>
     <string name="food">Food</string>

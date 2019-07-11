@@ -26,6 +26,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     val dateFormat = SimpleDateFormat("E hh:mm a")
     var mTorchOn = false
     lateinit var puppyBirthday: Calendar
+    private val mTorchCallback = object : CameraManager.TorchCallback(){
+        override fun onTorchModeChanged(cameraId: String, enabled: Boolean) {
+            super.onTorchModeChanged(cameraId, enabled)
+            mTorchOn = enabled
+            toggleFlashlight(enabled)
+        }
+
+        override fun onTorchModeUnavailable(cameraId: String) {
+            super.onTorchModeUnavailable(cameraId)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +52,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnFlashlight.setOnClickListener(this)
 
         setupButtonText()
+
+
+        if (savedInstanceState != null) {
+            mTorchOn = savedInstanceState.getBoolean("TORCHON")
+            toggleFlashlight(mTorchOn)
+        }
+        registerTorch();
 
         //Hide the flashlight button if the device doesnt have a flash
         if(!baseContext.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)){
@@ -68,6 +86,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
     }
+
 
     private fun setupButtonText() {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
@@ -139,7 +158,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btnFood -> recordFoodTime()
             R.id.btnPee -> recordPeeTime()
             R.id.btnPoo -> recordPooTime()
-            R.id.btnFlashlight -> toggleFlashlight()
+            R.id.btnFlashlight -> {
+                mTorchOn = !mTorchOn
+                toggleFlashlight(mTorchOn)
+            }
 
             else -> {
                 println("$v not implemented")
@@ -165,7 +187,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun toggleFlashlight() {
+    private fun registerTorch() {
+        val cm = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        cm.registerTorchCallback(mTorchCallback, null)
+    }
+
+    private fun toggleFlashlight(on: Boolean) {
         val cameraManager = getSystemService (Context.CAMERA_SERVICE) as CameraManager
         var cameraId = ""
         //Find the back facing camera
@@ -180,14 +207,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if(!cameraId.isNullOrEmpty()){
             val characteristics = cameraManager.getCameraCharacteristics(cameraId)
             if(characteristics[CameraCharacteristics.FLASH_INFO_AVAILABLE]){
-                cameraManager.setTorchMode(cameraId, !mTorchOn)
-                mTorchOn = !mTorchOn
+                cameraManager.setTorchMode(cameraId, on)
             }
         }
 
     }
 
+    override fun onStop() {
+        super.onStop()
+
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
+        val cm = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        cm.unregisterTorchCallback(mTorchCallback)
         outState?.run {
             putBoolean("TORCHON", mTorchOn)
         }

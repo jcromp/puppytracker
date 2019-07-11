@@ -13,12 +13,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintHorizontal_bias="0.5"
-            android:text="@string/puppyage" android:textSize="30sp" android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/btnPee"
-            app:layout_constraintVertical_chainStyle="spread_inside"/>
+            android:text="@string/puppyage" android:textSize="24sp" android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnFlashlight"
+            app:layout_constraintVertical_chainStyle="spread"/>
 
     <Button
             android:id="@+id/btnCrate"
@@ -51,7 +53,7 @@
             android:layout_marginStart="8dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/txtPee"
-            app:layout_constraintTop_toBottomOf="@+id/txtAge"
+            app:layout_constraintTop_toBottomOf="@+id/btnFlashlight"
             app:layout_constraintBottom_toTopOf="@+id/btnPoo"
     />
     <Button
@@ -68,7 +70,7 @@
     />
     <TextView
             android:id="@+id/txtCrate"
-            android:text="@string/press_button_to_record_time"
+            android:text="@string/press_button_to_record_time_short"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintStart_toEndOf="@+id/btnCrate"
